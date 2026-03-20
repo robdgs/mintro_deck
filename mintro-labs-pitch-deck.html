@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mintro Labs — Pitch Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f5f0;
+    --fg: #2e2e2e;
+    --primary: #D0ECDE;
+    --secondary: #47b47f;
+    --accent-yellow: #fed835;
+    --accent-blue: #304fff;
+    --white: #fafaf5;
+    --shadow: 6px 6px 0px 0px rgba(46,46,46,1);
+    --shadow-sm: 3px 3px 0px 0px rgba(46,46,46,1);
+    --shadow-lg: 10px 10px 0px 0px rgba(46,46,46,1);
+    --border: 2px solid #2e2e2e;
+    --border-thick: 4px solid #2e2e2e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Space Mono', monospace;
+    background: var(--bg);
+    background-image:
+      linear-gradient(to right, #2e2e2e12 1px, transparent 1px),
+      linear-gradient(to bottom, #2e2e2e12 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: var(--fg);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* SLIDE CONTAINER */
+  #deck {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(60px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+  }
+
+  .slide.exit {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  /* NAV */
+  #nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    z-index: 100;
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 10px 20px;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 0.3s ease;
+  }
+
+  #nav.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nav-btn {
+    background: var(--fg);
+    color: var(--white);
+    border: var(--border);
+    padding: 8px 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.15s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .nav-btn:hover {
+    background: var(--secondary);
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 0 rgba(46,46,46,1);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  #slide-counter {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  /* PROGRESS DOTS */
+  #dots {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  #dots.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--fg);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .dot.active {
+    background: var(--secondary);
+  }
+
+  .dot:hover {
+    background: var(--accent-yellow);
+  }
+
+  /* SLIDE NUMBER BADGE */
+  .slide-badge {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: var(--accent-yellow);
+    border: var(--border);
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    box-shadow: var(--shadow-sm);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* CARD BASE */
+  .card {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 24px;
+  }
+
+  .card-primary {
+    background: var(--primary);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 24px;
+  }
+
+  .card-dark {
+    background: var(--fg);
+    color: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 24px;
+  }
+
+  /* TYPOGRAPHY */
+  .h-display {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+  }
+
+  .h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(22px, 2.5vw, 32px);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+
+  .h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(16px, 1.8vw, 22px);
+    line-height: 1.2;
+  }
+
+  .body {
+    font-size: clamp(13px, 1.2vw, 15px);
+    line-height: 1.7;
+    font-family: 'Space Mono', monospace;
+    color: rgba(46,46,46,0.75);
+  }
+
+  .label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .text-secondary { color: var(--secondary); }
+  .text-accent { color: var(--accent-blue); }
+  .text-yellow { color: var(--accent-yellow); }
+
+  /* ACCENT LINE */
+  .accent-line {
+    width: 60px;
+    height: 4px;
+    background: var(--secondary);
+    margin: 12px 0;
+  }
+
+  /* GRID HELPERS */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* ===================== SLIDE 1: COVER ===================== */
+  #slide-1 {
+    background: var(--fg);
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  #slide-1 .inner {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logo-box {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--accent-yellow);
+    border: 3px solid var(--white);
+    padding: 12px 24px;
+    box-shadow: 6px 6px 0 0 rgba(255,255,255,0.4);
+    margin-bottom: 40px;
+  }
+
+  .logo-symbol {
+    width: 36px;
+    height: 36px;
+    background: var(--fg);
+    border: 2px solid var(--fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .logo-symbol svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--accent-yellow);
+  }
+
+  .cover-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(56px, 8vw, 100px);
+    line-height: 0.95;
+    letter-spacing: -4px;
+    color: var(--white);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .cover-title span {
+    color: var(--secondary);
+  }
+
+  .cover-sub {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+    letter-spacing: -0.5px;
+    margin-bottom: 32px;
+  }
+
+  .cover-tagline {
+    display: inline-block;
+    background: var(--secondary);
+    color: white;
+    border: 2px solid var(--white);
+    padding: 10px 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 0 rgba(255,255,255,0.3);
+  }
+
+  /* ===================== SLIDE 2: PROBLEM ===================== */
+  #slide-2 .inner {
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .problem-stat {
+    background: var(--fg);
+    color: var(--white);
+    border: var(--border);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .problem-stat .big-num {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    color: var(--accent-yellow);
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  /* ===================== SLIDE 3: SOLUTION ===================== */
+  #slide-3 .inner {
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .solution-pill {
+    display: inline-block;
+    background: var(--secondary);
+    color: white;
+    padding: 4px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: var(--border);
+    margin-bottom: 12px;
+  }
+
+  .feature-card {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 18px;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .feature-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow);
+  }
+
+  .feature-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1;
+    -webkit-text-stroke: 2px var(--fg);
+    margin-bottom: 8px;
+  }
+
+  /* ===================== SLIDE 4: MARKET ===================== */
+  #slide-4 .inner {
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .market-ring {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  .ring-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: var(--border-thick);
+  }
+
+  .ring-outer {
+    inset: 0;
+    background: var(--primary);
+    box-shadow: var(--shadow);
+  }
+
+  .ring-mid {
+    inset: 28px;
+    background: var(--secondary);
+  }
+
+  .ring-inner {
+    inset: 56px;
+    background: var(--fg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ring-inner span {
+    color: var(--accent-yellow);
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .market-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border: var(--border);
+    background: var(--white);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 10px;
+  }
+
+  .market-dot {
+    width: 16px;
+    height: 16px;
+    border: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ===================== SLIDE 5: PRODUCT ===================== */
+  #slide-5 .inner {
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .product-tier {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+
+  .product-tier:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .product-tier.featured {
+    background: var(--secondary);
+    color: white;
+    border: 4px solid var(--fg);
+  }
+
+  .product-tier.featured .body {
+    color: rgba(255,255,255,0.8);
+  }
+
+  .tier-icon {
+    width: 48px;
+    height: 48px;
+    border: var(--border);
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: var(--primary);
+  }
+
+  .product-tier.featured .tier-icon {
+    background: rgba(255,255,255,0.2);
+    border-color: white;
+  }
+
+  /* ===================== SLIDE 6: TRACTION ===================== */
+  #slide-6 .inner {
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .traction-card {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    text-align: center;
+  }
+
+  .traction-num {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800;
+    color: var(--secondary);
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  /* ===================== SLIDE 7: TEAM ===================== */
+  #slide-7 .inner {
+    max-width: 900px;
+    width: 100%;
+  }
+
+  .team-card {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .avatar {
+    width: 56px;
+    height: 56px;
+    background: var(--primary);
+    border: var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--fg);
+  }
+
+  /* ===================== SLIDE 8: BUSINESS MODEL ===================== */
+  #slide-8 .inner {
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .revenue-block {
+    background: var(--white);
+    border: var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 18px;
+    border-left: 6px solid var(--secondary);
+  }
+
+  .revenue-block.alt { border-left-color: var(--accent-blue); }
+  .revenue-block.alt2 { border-left-color: var(--accent-yellow); }
+
+  /* ===================== SLIDE 9: ROADMAP ===================== */
+  #slide-9 .inner {
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .roadmap-row {
+    display: flex;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 12px;
+  }
+
+  .roadmap-phase {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex: 1;
+  }
+
+  .phase-label {
+    background: var(--fg);
+    color: var(--accent-yellow);
+    padding: 12px 16px;
+    border: var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    writing-mode: horizontal-tb;
+    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phase-content {
+    background: var(--white);
+    border: var(--border);
+    border-left: none;
+    padding: 14px 18px;
+    flex: 1;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ===================== SLIDE 10: ASK ===================== */
+  #slide-10 {
+    background: var(--fg);
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  #slide-10 .inner {
+    max-width: 900px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .ask-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(60px, 9vw, 110px);
+    font-weight: 800;
+    letter-spacing: -5px;
+    line-height: 1;
+    color: var(--accent-yellow);
+  }
+
+  .use-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(255,255,255,0.07);
+    border: 2px solid rgba(255,255,255,0.2);
+    padding: 14px 20px;
+    margin-bottom: 8px;
+  }
+
+  .use-pct {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--secondary);
+    min-width: 60px;
+  }
+
+  .use-bar-wrap {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .use-bar-fill {
+    height: 100%;
+    background: var(--secondary);
+    transition: width 1s ease;
+  }
+
+  /* ANIMATIONS */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .slide.active .animate-1 { animation: slideUp 0.5s ease 0.05s both; }
+  .slide.active .animate-2 { animation: slideUp 0.5s ease 0.15s both; }
+  .slide.active .animate-3 { animation: slideUp 0.5s ease 0.25s both; }
+  .slide.active .animate-4 { animation: slideUp 0.5s ease 0.35s both; }
+  .slide.active .animate-5 { animation: slideUp 0.5s ease 0.45s both; }
+  .slide.active .animate-6 { animation: slideUp 0.5s ease 0.55s both; }
+
+  /* KEYPRESS HINT */
+  #hint {
+    position: fixed;
+    top: 24px;
+    right: 28px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(46,46,46,0.4);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div id="dots"></div>
+<div id="hint">← → Arrow Keys</div>
+
+<div id="deck">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide active" id="slide-1">
+    <div class="inner">
+      
+      <div class="cover-title animate-2">BLOCKCHAIN<br><span>MADE</span><br>SIMPLE.</div>
+      <div class="cover-sub animate-3">From Socratic dialogue to digital discovery</div>
+      <div class="cover-tagline animate-4">Reimagining Web3 Education — Seed Round 2026</div>
+    </div>
+    <div class="slide-badge">01 / 10</div>
+  </div>
+
+  <!-- SLIDE 2: PROBLEM -->
+  <div class="slide" id="slide-2">
+    <div class="inner">
+      <div class="animate-1">
+        <span class="label text-secondary">The Problem</span>
+        <div class="accent-line"></div>
+      </div>
+      <div class="h1 animate-2" style="margin-bottom:32px">Education hasn't<br>evolved. It's time<br><span class="text-secondary">it did.</span></div>
+      <div class="grid-3 animate-3">
+        <div class="problem-stat">
+          <div class="big-num">90%</div>
+          <div class="label" style="color:rgba(255,255,255,0.6);margin-bottom:4px">of knowledge</div>
+          <div class="body" style="color:rgba(255,255,255,0.5);font-size:12px">forgotten within a week without active reinforcement</div>
+        </div>
+        <div class="problem-stat">
+          <div class="big-num">1500+</div>
+          <div class="label" style="color:rgba(255,255,255,0.6);margin-bottom:4px">High Schools</div>
+          <div class="body" style="color:rgba(255,255,255,0.5);font-size:12px">willing to increase STEM offerings — no suitable Web3 programs available</div>
+        </div>
+        <div class="problem-stat">
+          <div class="big-num">$9.39B</div>
+          <div class="label" style="color:rgba(255,255,255,0.6);margin-bottom:4px">Market by 2033</div>
+          <div class="body" style="color:rgba(255,255,255,0.5);font-size:12px">Web3 education is a massive untapped opportunity with no dominant player in Italy</div>
+        </div>
+      </div>
+      <div class="card animate-4" style="margin-top:20px;background:var(--accent-yellow);border-color:var(--fg)">
+        <div class="body" style="color:var(--fg);font-size:13px">
+          <strong>The Web3 space is scattered</strong> — tutorials here, documentation there, outdated guides everywhere. No gamified, verifiable, classroom-ready platform exists in Italy.
+        </div>
+      </div>
+    </div>
+    <div class="slide-badge">02 / 10</div>
+  </div>
+
+  <!-- SLIDE 3: SOLUTION -->
+  <div class="slide" id="slide-3">
+    <div class="inner">
+      <div class="animate-1">
+        <span class="label text-secondary">Our Solution</span>
+        <div class="accent-line"></div>
+        <div class="h1" style="margin-bottom:28px">The first gamified<br>Web3 learning platform<br><span class="text-secondary">built for Italy.</span></div>
+      </div>
+      <div class="grid-3 animate-2">
+        <div class="feature-card">
+          <div class="feature-num">01</div>
+          <div class="h3" style="margin-bottom:8px">Gamification</div>
+          <div class="body" style="font-size:12px">Progressive modules, challenges, and on-chain certificates aligned with the EU ELEVATE framework. Learning feels like leveling up.</div>
+        </div>
+        <div class="feature-card" style="background:var(--secondary);color:white;border:var(--border);box-shadow:var(--shadow)">
+          <div class="feature-num" style="color:rgba(255,255,255,0.25);-webkit-text-stroke:2px white">02</div>
+          <div class="h3" style="margin-bottom:8px;color:white">Learning Hub</div>
+          <div class="body" style="color:rgba(255,255,255,0.8);font-size:12px">Unified knowledge base: courses, articles, quizzes, and AI study companions — all in one platform.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-num">03</div>
+          <div class="h3" style="margin-bottom:8px">Web3 Credentials</div>
+          <div class="body" style="font-size:12px">Blockchain-verified certificates. Transparent, portable, impossible to fake. Your achievements, forever on-chain.</div>
+        </div>
+      </div>
+      <div class="card-primary animate-3" style="margin-top:20px">
+        <div class="body" style="font-size:13px;color:var(--fg)">
+          ⚡ <strong>Maieutic approach:</strong> Socratic questioning drives discovery-based learning — students actively engage rather than passively consume.
+        </div>
+      </div>
+    </div>
+    <div class="slide-badge">03 / 10</div>
+  </div>
+
+  <!-- SLIDE 4: MARKET -->
+  <div class="slide" id="slide-4">
+    <div class="inner">
+      <div class="grid-2" style="gap:40px;align-items:center">
+        <div>
+          <div class="animate-1">
+            <span class="label text-secondary">Market Opportunity</span>
+            <div class="accent-line"></div>
+            <div class="h1" style="margin-bottom:28px">A massive,<br><span class="text-secondary">untapped</span><br>market.</div>
+          </div>
+          <div class="animate-2">
+            <div class="market-row">
+              <div class="market-dot" style="background:var(--primary)"></div>
+              <div>
+                <div class="h3">TAM — $9.39B</div>
+                <div class="body" style="font-size:12px">Global Web3 Education market by 2033</div>
+              </div>
+            </div>
+            <div class="market-row">
+              <div class="market-dot" style="background:var(--secondary)"></div>
+              <div>
+                <div class="h3">SAM — Italian Ed-Tech</div>
+                <div class="body" style="font-size:12px">1,500+ high schools + universities seeking STEM innovation</div>
+              </div>
+            </div>
+            <div class="market-row">
+              <div class="market-dot" style="background:var(--fg)"></div>
+              <div>
+                <div class="h3">SOM — First Mover</div>
+                <div class="body" style="font-size:12px">No scalable Italian Web3 education provider exists today</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="animate-3" style="display:flex;flex-direction:column;gap:16px;align-items:center">
+          <div class="market-ring">
+            <div class="ring-circle ring-outer"></div>
+            <div class="ring-circle ring-mid"></div>
+            <div class="ring-circle ring-inner"><span>SOM</span></div>
+          </div>
+          <div class="card" style="width:100%;text-align:center">
+            <div class="h2 text-secondary">1st</div>
+            <div class="label" style="margin-top:4px">Scalable Italian<br>Web3 Education Provider</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-badge">04 / 10</div>
+  </div>
+
+  <!-- SLIDE 5: PRODUCT -->
+  <div class="slide" id="slide-5">
+    <div class="inner">
+      <div class="animate-1">
+        <span class="label text-secondary">Product</span>
+        <div class="accent-line"></div>
+        <div class="h1" style="margin-bottom:28px">Three formats.<br><span class="text-secondary">One ecosystem.</span></div>
+      </div>
+      <div class="grid-3 animate-2">
+        <div class="product-tier">
+          <div class="tier-icon">🔧</div>
+          <div class="h2" style="margin-bottom:8px">Workshop</div>
+          <div class="body" style="font-size:12px;margin-bottom:16px">2–4 hours · Up to 30 people · Hands-on & interactive</div>
+          <div style="text-align:left">
+            <div style="font-size:11px;padding:5px 0;border-bottom:1px solid rgba(46,46,46,0.1);font-family:'Space Mono',monospace">✓ All materials & tools</div>
+            <div style="font-size:11px;padding:5px 0;border-bottom:1px solid rgba(46,46,46,0.1);font-family:'Space Mono',monospace">✓ Digital workbook</div>
+            <div style="font-size:11px;padding:5px 0;border-bottom:1px solid rgba(46,46,46,0.1);font-family:'Space Mono',monospace">✓ 1-week post support</div>
+            <div style="font-size:11px;padding:5px 0;font-family:'Space Mono',monospace">✓ Community forum access</div>
+          </div>
+        </div>
+        <div class="product-tier featured">
+          <div class="tier-icon">⚗️</div>
+          <div class="h2" style="margin-bottom:8px;color:white">Lab</div>
+          <div class="body" style="font-size:12px;margin-bottom:16px">4–8 hours · Up to 15 people · Experimental</div>
+          <div style="text-align:left">
+            <div style="font-size:11px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.2);font-family:'Space Mono',monospace;color:white">✓ Advanced materials</div>
+            <div style="font-size:11px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.2);font-family:'Space Mono',monospace;color:white">✓ 1-on-1 mentorship</div>
+            <div style="font-size:11px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.2);font-family:'Space Mono',monospace;color:white">✓ 2-week consultation</div>
+            <div style="font-size:11px;padding:5px 0;font-family:'Space Mono',monospace;color:white">✓ Onchain certificate</div>
+          </div>
+          <div style="position:absolute;top:-2px;right:-2px;background:var(--accent-yellow);border:var(--border);padding:3px 10px;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--fg)">POPULAR</div>
+        </div>
+        <div class="product-tier">
+          <div class="tier-icon">🎓</div>
+          <div class="h2" style="margin-bottom:8px">Course</div>
+          <div class="body" style="font-size:12px;margin-bottom:16px">8–12 weeks · Up to 50 people · Comprehensive</div>
+          <div style="text-align:left">
+            <div style="font-size:11px;padding:5px 0;border-bottom:1px solid rgba(46,46,46,0.1);font-family:'Space Mono',monospace">✓ Full curriculum</div>
+            <div style="font-size:11px;padding:5px 0;border-bottom:1px solid rgba(46,46,46,0.1);font-family:'Space Mono',monospace">✓ Personalized path</div>
+            <div style="font-size:11px;padding:5px 0;border-bottom:1px solid rgba(46,46,46,0.1);font-family:'Space Mono',monospace">✓ Ongoing support</div>
+            <div style="font-size:11px;padding:5px 0;font-family:'Space Mono',monospace">✓ Challenges & competitions</div>
+          </div>
+        </div>
+      </div>
+      <div class="animate-3 card-primary" style="margin-top:18px;text-align:center">
+        <div class="body" style="font-size:12px;color:var(--fg)">🌐 Plus: <strong>Online Platform</strong> with courses, articles, quizzes, and AI-powered study companion — accessible 24/7</div>
+      </div>
+    </div>
+    <div class="slide-badge">05 / 10</div>
+  </div>
+
+  <!-- SLIDE 6: TRACTION -->
+  <div class="slide" id="slide-6">
+    <div class="inner">
+      <div class="animate-1">
+        <span class="label text-secondary">Traction & Partnerships</span>
+        <div class="accent-line"></div>
+        <div class="h1" style="margin-bottom:28px">We're not just<br>building — we're<br><span class="text-secondary">already doing.</span></div>
+      </div>
+      <div class="grid-3 animate-2">
+        <div class="traction-card">
+          <div class="traction-num">ABA2020</div>
+          <div class="label" style="margin:8px 0 4px">Strategic Partner</div>
+          <div class="body" style="font-size:12px">Collaboration with Roma Tre, LUISS, UCBM and institutions across Italy</div>
+        </div>
+        <div class="traction-card" style="background:var(--fg);color:white">
+          <div class="traction-num" style="color:var(--accent-yellow)">PCTO</div>
+          <div class="label" style="margin:8px 0 4px;color:rgba(255,255,255,0.6)">School Programs</div>
+          <div class="body" style="font-size:12px;color:rgba(255,255,255,0.6)">Delivering blockchain education directly through Italian school programs</div>
+        </div>
+        <div class="traction-card">
+          <div class="traction-num">EU</div>
+          <div class="label" style="margin:8px 0 4px">Grants Pipeline</div>
+          <div class="body" style="font-size:12px">ELEVATE framework alignment + Digital Europe Programme positioning</div>
+        </div>
+      </div>
+      <div class="animate-3" style="margin-top:18px">
+        <div class="body" style="font-size:11px;margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Community & Ecosystem Supporters</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div style="background:var(--white);border:var(--border);padding:8px 16px;font-size:11px;font-weight:700;box-shadow:var(--shadow-sm)">BuidlGuidl</div>
+          <div style="background:var(--white);border:var(--border);padding:8px 16px;font-size:11px;font-weight:700;box-shadow:var(--shadow-sm)">The Graph</div>
+          <div style="background:var(--white);border:var(--border);padding:8px 16px;font-size:11px;font-weight:700;box-shadow:var(--shadow-sm)">Fileverse</div>
+          <div style="background:var(--white);border:var(--border);padding:8px 16px;font-size:11px;font-weight:700;box-shadow:var(--shadow-sm)">ETH Rome</div>
+          <div style="background:var(--white);border:var(--border);padding:8px 16px;font-size:11px;font-weight:700;box-shadow:var(--shadow-sm)">Urbe.eth</div>
+          <div style="background:var(--white);border:var(--border);padding:8px 16px;font-size:11px;font-weight:700;box-shadow:var(--shadow-sm)">42 School</div>
+          <div style="background:var(--white);border:var(--border);padding:8px 16px;font-size:11px;font-weight:700;box-shadow:var(--shadow-sm)">CtrlShift</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-badge">06 / 10</div>
+  </div>
+
+  <!-- SLIDE 7: TEAM -->
+  <div class="slide" id="slide-7">
+    <div class="inner">
+      <div class="animate-1">
+        <span class="label text-secondary">The Team</span>
+        <div class="accent-line"></div>
+        <div class="h1" style="margin-bottom:28px">Builders who<br>ask the right<br><span class="text-secondary">questions.</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px" class="animate-2">
+        <div class="team-card">
+          <div class="avatar">RD</div>
+          <div>
+            <div class="h3">Roberta D'Agostino</div>
+            <div class="label text-secondary" style="margin:4px 0 8px">Founder & CEO</div>
+            <div class="body" style="font-size:12px">"Education has always been about asking the right questions. With Mintro Labs, I'm bringing the Socratic spirit into the digital age — creating learning experiences that are interactive, meaningful, and built for the future."</div>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="avatar" style="background:var(--secondary);color:white">AF</div>
+          <div>
+            <div class="h3">Alessandro Fiumicelli</div>
+            <div class="label text-secondary" style="margin:4px 0 8px">CBDO & Learning Architect</div>
+            <div class="body" style="font-size:12px">"At Mintro Labs, I combine technology and learning design to make knowledge more engaging. My goal is to build bridges between innovation, education, and real-world application through gamified strategies."</div>
+          </div>
+        </div>
+      </div>
+      <div class="animate-3 card-primary" style="margin-top:18px">
+        <div class="body" style="font-size:12px">🤝 <strong>Advisory Network:</strong> Backed by ABA2020's expertise and relationships with top Italian universities and blockchain ecosystems</div>
+      </div>
+    </div>
+    <div class="slide-badge">07 / 10</div>
+  </div>
+
+  <!-- SLIDE 8: BUSINESS MODEL -->
+  <div class="slide" id="slide-8">
+    <div class="inner">
+      <div class="animate-1">
+        <span class="label text-secondary">Business Model</span>
+        <div class="accent-line"></div>
+        <div class="h1" style="margin-bottom:28px">Multiple revenue<br>streams, <span class="text-secondary">one</span><br>mission.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px" class="animate-2">
+        <div class="revenue-block">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div class="h3">B2B — Schools & Universities</div>
+            <div class="label text-secondary">Primary</div>
+          </div>
+          <div class="body" style="font-size:12px">Workshops, Labs, and Courses delivered as PCTO programs and institutional partnerships. Annual contracts with institutions.</div>
+        </div>
+        <div class="revenue-block alt">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div class="h3">B2B — Corporate Sponsorships</div>
+            <div class="label text-accent">Growing</div>
+          </div>
+          <div class="body" style="font-size:12px">Web3 protocols and companies feature their technology in our courses. Talent pipeline & brand exposure to next-gen builders.</div>
+        </div>
+        <div class="revenue-block alt2">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div class="h3">B2C — Platform Subscriptions</div>
+            <div class="label" style="color:#b8960c">Future</div>
+          </div>
+          <div class="body" style="font-size:12px">Premium platform access for individual learners. On-chain certificate issuance fees. Competition entry and advanced certifications.</div>
+        </div>
+        <div class="revenue-block" style="border-left-color:var(--primary);background:var(--primary)">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <div class="h3">Grants & EU Funding</div>
+            <div class="label text-secondary">Non-Dilutive</div>
+          </div>
+          <div class="body" style="font-size:12px">Digital Europe Programme alignment + ELEVATE framework + Italian innovation grants for EdTech.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-badge">08 / 10</div>
+  </div>
+
+  <!-- SLIDE 9: ROADMAP -->
+  <div class="slide" id="slide-9">
+    <div class="inner">
+      <div class="animate-1">
+        <span class="label text-secondary">Roadmap</span>
+        <div class="accent-line"></div>
+        <div class="h1" style="margin-bottom:28px">From dialogue<br>to <span class="text-secondary">discovery.</span></div>
+      </div>
+      <div class="animate-2">
+        <div class="roadmap-row">
+          <div class="roadmap-phase">
+            <div class="phase-label" style="background:var(--secondary);color:white">Q1–Q2<br>2026</div>
+            <div class="phase-content">
+              <div class="h3" style="margin-bottom:6px">Foundation ✅</div>
+              <div class="body" style="font-size:12px">Platform launch · First institutional partnerships · ABA2020 integration · Pilot PCTO programs in Rome</div>
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-row">
+          <div class="roadmap-phase">
+            <div class="phase-label">Q3–Q4<br>2026</div>
+            <div class="phase-content" style="background:var(--primary)">
+              <div class="h3" style="margin-bottom:6px">Expansion 🚀</div>
+              <div class="body" style="font-size:12px">10+ institutional contracts · Corporate sponsorship program · AI study companion launch · 500+ active learners</div>
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-row">
+          <div class="roadmap-phase">
+            <div class="phase-label">Q1–Q2<br>2027</div>
+            <div class="phase-content">
+              <div class="h3" style="margin-bottom:6px">Scale 📈</div>
+              <div class="body" style="font-size:12px">National rollout across Italy · EU grant funding secured · On-chain credential ecosystem · 2,000+ learners</div>
+            </div>
+          </div>
+        </div>
+        <div class="roadmap-row">
+          <div class="roadmap-phase">
+            <div class="phase-label">2027+</div>
+            <div class="phase-content" style="background:var(--fg);color:white">
+              <div class="h3" style="margin-bottom:6px;color:var(--accent-yellow)">European Leader 🌍</div>
+              <div class="body" style="font-size:12px;color:rgba(255,255,255,0.7)">Expand to EU markets · Series A · Become the definitive Web3 education infrastructure for Europe</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-badge">09 / 10</div>
+  </div>
+
+  <!-- SLIDE 10: THE ASK -->
+  <div class="slide" id="slide-10">
+    <div class="inner">
+      <div class="animate-1">
+        <div class="label" style="color:rgba(255,255,255,0.5);margin-bottom:8px">The Ask</div>
+      </div>
+      <div class="ask-amount animate-2">€300K</div>
+      <div class="animate-3" style="color:rgba(255,255,255,0.7);font-family:'Syne',sans-serif;font-size:20px;font-weight:600;margin:8px 0 32px;letter-spacing:-0.5px">
+        Seed Round — Building the future of Web3 education in Italy
+      </div>
+      <div class="animate-4" style="width:100%;max-width:600px;margin:0 auto 32px">
+        <div class="use-item">
+          <div class="use-pct">40%</div>
+          <div style="flex:1">
+            <div style="color:white;font-size:13px;font-weight:700;margin-bottom:6px;font-family:'Space Mono',monospace">Product & Technology</div>
+            <div class="use-bar-wrap"><div class="use-bar-fill" style="width:40%"></div></div>
+          </div>
+        </div>
+        <div class="use-item">
+          <div class="use-pct">30%</div>
+          <div style="flex:1">
+            <div style="color:white;font-size:13px;font-weight:700;margin-bottom:6px;font-family:'Space Mono',monospace">Sales & Institutional Partnerships</div>
+            <div class="use-bar-wrap"><div class="use-bar-fill" style="width:30%"></div></div>
+          </div>
+        </div>
+        <div class="use-item">
+          <div class="use-pct">20%</div>
+          <div style="flex:1">
+            <div style="color:white;font-size:13px;font-weight:700;margin-bottom:6px;font-family:'Space Mono',monospace">Content & Curriculum Development</div>
+            <div class="use-bar-wrap"><div class="use-bar-fill" style="width:20%"></div></div>
+          </div>
+        </div>
+        <div class="use-item">
+          <div class="use-pct">10%</div>
+          <div style="flex:1">
+            <div style="color:white;font-size:13px;font-weight:700;margin-bottom:6px;font-family:'Space Mono',monospace">Operations & Legal</div>
+            <div class="use-bar-wrap"><div class="use-bar-fill" style="width:10%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="animate-5" style="display:inline-flex;gap:12px;align-items:center;background:var(--secondary);border:2px solid white;padding:14px 28px;box-shadow:5px 5px 0 0 rgba(255,255,255,0.25)">
+        <span style="color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:16px">Start Strong. Grow Stronger.</span>
+        <span style="color:var(--accent-yellow);font-size:20px">→</span>
+      </div>
+    </div>
+    <div class="slide-badge" style="background:var(--secondary);color:white;border-color:white">10 / 10</div>
+  </div>
+
+</div>
+
+<!-- NAVIGATION -->
+<div id="nav">
+  <button class="nav-btn" id="prev-btn" disabled>← Prev</button>
+  <span id="slide-counter">1 / 10</span>
+  <button class="nav-btn" id="next-btn">Next →</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const dots = document.getElementById('dots');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const counter = document.getElementById('slide-counter');
+  const nav = document.getElementById('nav');
+  let current = 0;
+  const total = slides.length;
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dots.appendChild(d);
+  });
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= total) return;
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+    setTimeout(() => slides[current === idx ? idx : current].classList.remove('exit'), 400);
+    current = idx;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = `${current + 1} / ${total}`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    
+    // Show/hide progress dots: visible from slide 2 to 9 (indices 1-8)
+    if (current > 0 && current < total - 1) {
+      dots.classList.add('visible');
+    } else {
+      dots.classList.remove('visible');
+    }
+    
+    // Show/hide nav bar: visible only on slide 1 (index 0)
+    if (current === 0) {
+      nav.classList.remove('hidden');
+    } else {
+      nav.classList.add('hidden');
+    }
+  }
+
+  prevBtn.onclick = () => goTo(current - 1);
+  nextBtn.onclick = () => goTo(current + 1);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+  });
+
+  // Touch swipe
+  let touchX = 0;
+  document.addEventListener('touchstart', e => touchX = e.changedTouches[0].screenX);
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - touchX;
+    if (dx < -50) goTo(current + 1);
+    if (dx > 50) goTo(current - 1);
+  });
+</script>
+</body>
+</html>
