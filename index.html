@@ -822,6 +822,800 @@
       .use-pct {
         font-family: "Manrope", sans-serif !important;
       }
+
+      /* ===================== RESPONSIVE DESIGN ===================== */
+      @media (max-width: 1024px) {
+        :root {
+          --shadow: 4px 4px 0px 0px rgba(46, 46, 46, 1);
+          --shadow-sm: 2px 2px 0px 0px rgba(46, 46, 46, 1);
+          --shadow-lg: 6px 6px 0px 0px rgba(46, 46, 46, 1);
+        }
+
+        .slide {
+          padding: 30px;
+        }
+
+        .h-display {
+          font-size: clamp(40px, 5vw, 60px);
+        }
+
+        .cover-title {
+          font-size: clamp(40px, 6vw, 72px);
+        }
+
+        .cover-sub {
+          font-size: clamp(16px, 2vw, 20px);
+        }
+
+        .ask-amount {
+          font-size: clamp(48px, 8vw, 80px);
+        }
+
+        #nav {
+          bottom: 20px;
+          padding: 8px 16px;
+          gap: 12px;
+        }
+
+        .nav-btn {
+          padding: 6px 16px;
+          font-size: 11px;
+        }
+
+        #dots {
+          top: 16px;
+          gap: 6px;
+        }
+
+        .dot {
+          width: 8px;
+          height: 8px;
+        }
+
+        .slide-badge {
+          top: 14px;
+          right: 16px;
+          padding: 3px 10px;
+          font-size: 10px;
+        }
+
+        .market-ring {
+          width: 160px;
+          height: 160px;
+        }
+
+        .ring-mid {
+          inset: 22px;
+        }
+
+        .ring-inner {
+          inset: 44px;
+        }
+
+        .team-card {
+          padding: 16px;
+          gap: 12px;
+        }
+
+        .avatar {
+          width: 48px;
+          height: 48px;
+        }
+
+        .feature-card {
+          padding: 14px;
+        }
+
+        .grid-3 {
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+
+        .product-tier {
+          padding: 16px;
+        }
+
+        .traction-card {
+          padding: 18px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          background-size: 16px 16px;
+        }
+
+        .slide {
+          padding: 20px;
+        }
+
+        #deck {
+          padding-top: 60px;
+          padding-bottom: 80px;
+        }
+
+        .inner {
+          width: 100%;
+        }
+
+        .h1 {
+          font-size: clamp(24px, 3.5vw, 36px);
+        }
+
+        .h2 {
+          font-size: clamp(18px, 2.2vw, 26px);
+        }
+
+        .h3 {
+          font-size: clamp(14px, 1.6vw, 18px);
+        }
+
+        .body {
+          font-size: clamp(11px, 1vw, 13px);
+        }
+
+        .label {
+          font-size: 10px;
+          letter-spacing: 1.5px;
+        }
+
+        .accent-line {
+          width: 50px;
+          height: 3px;
+        }
+
+        .cover-title {
+          font-size: clamp(32px, 5vw, 48px);
+          margin-bottom: 8px;
+        }
+
+        .cover-sub {
+          font-size: clamp(14px, 1.8vw, 18px);
+          margin-bottom: 20px;
+        }
+
+        .logo-box {
+          gap: 10px;
+          padding: 10px 16px;
+          margin-bottom: 24px;
+        }
+
+        .logo-symbol {
+          width: 28px;
+          height: 28px;
+        }
+
+        .logo-symbol svg {
+          width: 18px;
+          height: 18px;
+        }
+
+        .problem-stat {
+          padding: 14px;
+        }
+
+        .problem-stat .big-num {
+          font-size: clamp(22px, 3vw, 32px);
+        }
+
+        .grid-2 {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+
+        .grid-3 {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .feature-card {
+          padding: 12px;
+        }
+
+        .feature-num {
+          font-size: 32px;
+          margin-bottom: 6px;
+        }
+
+        .market-ring {
+          width: 140px;
+          height: 140px;
+        }
+
+        .ring-mid {
+          inset: 20px;
+        }
+
+        .ring-inner {
+          inset: 40px;
+        }
+
+        .ring-inner span {
+          font-size: 12px;
+        }
+
+        .market-row {
+          padding: 10px 12px;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+
+        .market-dot {
+          width: 14px;
+          height: 14px;
+        }
+
+        .traction-num {
+          font-size: clamp(24px, 3.5vw, 40px);
+        }
+
+        .team-card {
+          padding: 14px;
+          gap: 12px;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .avatar {
+          width: 56px;
+          height: 56px;
+        }
+
+        .product-tier {
+          padding: 14px;
+        }
+
+        .tier-icon {
+          width: 40px;
+          height: 40px;
+          margin: 0 auto 10px;
+          font-size: 18px;
+        }
+
+        .revenue-block {
+          padding: 14px;
+          margin-bottom: 10px;
+        }
+
+        .roadmap-row {
+          margin-bottom: 10px;
+          flex-direction: column;
+        }
+
+        .roadmap-phase {
+          flex-direction: column;
+        }
+
+        .phase-label {
+          min-width: auto;
+          padding: 10px 12px;
+          font-size: 9px;
+          writing-mode: horizontal-tb;
+          border-bottom: none;
+        }
+
+        .phase-content {
+          padding: 12px 14px;
+          border-left: var(--border);
+        }
+
+        #nav {
+          bottom: 12px;
+          padding: 8px 12px;
+          gap: 10px;
+          box-shadow: 2px 2px 0px 0px rgba(46, 46, 46, 1);
+          display: flex !important;
+          opacity: 1 !important;
+          pointer-events: all !important;
+          visibility: visible !important;
+        }
+
+        #nav.hidden {
+          display: flex !important;
+          opacity: 1 !important;
+          pointer-events: all !important;
+          visibility: visible !important;
+        }
+
+        .nav-btn {
+          padding: 6px 14px;
+          font-size: 11px;
+          display: inline-block;
+          width: auto;
+        }
+
+        #slide-counter {
+          font-size: 11px;
+          min-width: 50px;
+        }
+
+        #dots {
+          top: 10px;
+          gap: 5px;
+        }
+
+        .dot {
+          width: 7px;
+          height: 7px;
+          border: 1.5px solid var(--fg);
+        }
+
+        .slide-badge {
+          top: 10px;
+          right: 12px;
+          padding: 2px 8px;
+          font-size: 9px;
+        }
+
+        .card {
+          padding: 16px;
+        }
+
+        .card-primary {
+          padding: 16px;
+        }
+
+        .card-dark {
+          padding: 16px;
+        }
+
+        .use-item {
+          padding: 10px 14px;
+          gap: 10px;
+          margin-bottom: 6px;
+        }
+
+        .use-pct {
+          font-size: 18px;
+          min-width: 50px;
+        }
+
+        .ask-amount {
+          font-size: clamp(36px, 6vw, 60px);
+        }
+
+        .solution-pill {
+          padding: 3px 12px;
+          font-size: 10px;
+          margin-bottom: 10px;
+        }
+
+        .traction-card {
+          padding: 14px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        :root {
+          --shadow: 2px 2px 0px 0px rgba(46, 46, 46, 1);
+          --shadow-sm: 1px 1px 0px 0px rgba(46, 46, 46, 1);
+          --shadow-lg: 3px 3px 0px 0px rgba(46, 46, 46, 1);
+        }
+
+        body {
+          background-size: 12px 12px;
+        }
+
+        .slide {
+          padding: 16px;
+          align-items: flex-start;
+          justify-content: flex-start;
+          overflow-y: auto;
+          padding-top: 60px;
+          padding-bottom: 80px;
+        }
+
+        .slide.active {
+          overflow-y: auto;
+        }
+
+        .inner {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .h-display {
+          font-size: clamp(28px, 4vw, 40px);
+        }
+
+        .h1 {
+          font-size: clamp(18px, 2.8vw, 28px);
+        }
+
+        .h2 {
+          font-size: clamp(14px, 1.8vw, 20px);
+        }
+
+        .h3 {
+          font-size: clamp(12px, 1.4vw, 16px);
+        }
+
+        .body {
+          font-size: clamp(10px, 0.9vw, 12px);
+        }
+
+        .label {
+          font-size: 9px;
+          letter-spacing: 1px;
+        }
+
+        .cover-title {
+          font-size: clamp(24px, 4.5vw, 36px);
+          margin-bottom: 6px;
+        }
+
+        .cover-sub {
+          font-size: clamp(12px, 1.6vw, 16px);
+          margin-bottom: 16px;
+        }
+
+        .logo-box {
+          gap: 8px;
+          padding: 8px 12px;
+          margin-bottom: 16px;
+          box-shadow: 2px 2px 0 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .logo-symbol {
+          width: 24px;
+          height: 24px;
+        }
+
+        .logo-symbol svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .cover-tagline {
+          padding: 8px 20px;
+          font-size: 10px;
+          letter-spacing: 1px;
+          box-shadow: 2px 2px 0 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .problem-stat {
+          padding: 12px;
+        }
+
+        .problem-stat .big-num {
+          font-size: clamp(18px, 2.5vw, 26px);
+        }
+
+        .grid-2 {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .grid-3 {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .feature-card {
+          padding: 10px;
+        }
+
+        .feature-num {
+          font-size: 24px;
+          margin-bottom: 4px;
+        }
+
+        .market-ring {
+          width: 110px;
+          height: 110px;
+        }
+
+        .ring-mid {
+          inset: 16px;
+        }
+
+        .ring-inner {
+          inset: 32px;
+        }
+
+        .ring-inner span {
+          font-size: 10px;
+        }
+
+        .market-row {
+          padding: 8px 10px;
+          gap: 6px;
+          margin-bottom: 6px;
+        }
+
+        .market-dot {
+          width: 12px;
+          height: 12px;
+        }
+
+        .traction-num {
+          font-size: clamp(18px, 3vw, 28px);
+        }
+
+        .team-card {
+          padding: 12px;
+          gap: 12px;
+        }
+
+        .avatar {
+          width: 48px;
+          height: 48px;
+          flex-shrink: 0;
+        }
+
+        .product-tier {
+          padding: 12px;
+        }
+
+        .tier-icon {
+          width: 36px;
+          height: 36px;
+          margin: 0 auto 8px;
+          font-size: 16px;
+        }
+
+        .revenue-block {
+          padding: 12px;
+          margin-bottom: 8px;
+        }
+
+        .phase-label {
+          min-width: 70px;
+          padding: 8px 10px;
+          font-size: 8px;
+        }
+
+        .phase-content {
+          padding: 10px 12px;
+        }
+
+        .roadmap-row {
+          margin-bottom: 8px;
+        }
+
+        #nav {
+          bottom: 8px;
+          padding: 6px 10px;
+          gap: 8px;
+          box-shadow: 1px 1px 0px 0px rgba(46, 46, 46, 1);
+          display: flex !important;
+          opacity: 1 !important;
+          pointer-events: all !important;
+          visibility: visible !important;
+        }
+
+        #nav.hidden {
+          display: flex !important;
+          opacity: 1 !important;
+          pointer-events: all !important;
+          visibility: visible !important;
+        }
+
+        .nav-btn {
+          padding: 5px 10px;
+          font-size: 10px;
+          display: inline-block;
+          width: auto;
+        }
+
+        #slide-counter {
+          font-size: 10px;
+          min-width: 40px;
+        }
+
+        #dots {
+          top: 8px;
+          gap: 4px;
+        }
+
+        .dot {
+          width: 6px;
+          height: 6px;
+          border: 1px solid var(--fg);
+        }
+
+        .slide-badge {
+          top: 8px;
+          right: 10px;
+          padding: 2px 6px;
+          font-size: 8px;
+        }
+
+        .card {
+          padding: 12px;
+        }
+
+        .card-primary {
+          padding: 12px;
+        }
+
+        .card-dark {
+          padding: 12px;
+        }
+
+        .accent-line {
+          width: 40px;
+          height: 2px;
+        }
+
+        .use-item {
+          padding: 8px 10px;
+          gap: 8px;
+          margin-bottom: 5px;
+        }
+
+        .use-pct {
+          font-size: 14px;
+          min-width: 40px;
+        }
+
+        .ask-amount {
+          font-size: clamp(28px, 5vw, 48px);
+        }
+
+        .solution-pill {
+          padding: 2px 10px;
+          font-size: 9px;
+          margin-bottom: 8px;
+        }
+
+        .traction-card {
+          padding: 12px;
+        }
+
+        #hint {
+          font-size: 8px;
+          right: 14px;
+          top: 16px;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .slide {
+          padding: 12px;
+          padding-top: 50px;
+          padding-bottom: 70px;
+        }
+
+        .h1 {
+          font-size: clamp(16px, 2.5vw, 24px);
+        }
+
+        .h2 {
+          font-size: clamp(12px, 1.6vw, 18px);
+        }
+
+        .h3 {
+          font-size: clamp(10px, 1.2vw, 14px);
+        }
+
+        .body {
+          font-size: clamp(9px, 0.8vw, 11px);
+        }
+
+        .cover-title {
+          font-size: clamp(20px, 4vw, 28px);
+          margin-bottom: 4px;
+        }
+
+        .cover-sub {
+          font-size: clamp(11px, 1.4vw, 14px);
+          margin-bottom: 12px;
+        }
+
+        .logo-box {
+          width: 200px;
+          height: 200px;
+          padding: 24px;
+          margin-bottom: 12px;
+        }
+
+        .problem-stat {
+          padding: 10px;
+        }
+
+        .problem-stat .big-num {
+          font-size: clamp(16px, 2.2vw, 22px);
+        }
+
+        .feature-card {
+          padding: 8px;
+        }
+
+        .feature-num {
+          font-size: 20px;
+        }
+
+        .market-ring {
+          width: 100px;
+          height: 100px;
+        }
+
+        .ring-mid {
+          inset: 14px;
+        }
+
+        .ring-inner {
+          inset: 28px;
+        }
+
+        .traction-num {
+          font-size: clamp(16px, 2.5vw, 24px);
+        }
+
+        .team-card {
+          padding: 10px;
+        }
+
+        .avatar {
+          width: 44px;
+          height: 44px;
+        }
+
+        .product-tier {
+          padding: 10px;
+        }
+
+        .tier-icon {
+          width: 32px;
+          height: 32px;
+          font-size: 14px;
+        }
+
+        .revenue-block {
+          padding: 10px;
+        }
+
+        #nav {
+          bottom: 6px;
+          padding: 5px 8px;
+          gap: 6px;
+          display: flex !important;
+          opacity: 1 !important;
+          pointer-events: all !important;
+          visibility: visible !important;
+        }
+
+        #nav.hidden {
+          display: flex !important;
+          opacity: 1 !important;
+          pointer-events: all !important;
+          visibility: visible !important;
+        }
+
+        .nav-btn {
+          padding: 4px 8px;
+          font-size: 9px;
+          display: inline-block;
+          width: auto;
+        }
+
+        #slide-counter {
+          font-size: 9px;
+          min-width: 35px;
+        }
+
+        .slide-badge {
+          top: 6px;
+          right: 8px;
+          padding: 2px 5px;
+          font-size: 7px;
+        }
+
+        .ask-amount {
+          font-size: clamp(24px, 4.5vw, 36px);
+        }
+
+        .use-pct {
+          font-size: 12px;
+        }
+
+        .solution-pill {
+          padding: 2px 8px;
+          font-size: 8px;
+        }
+      }
     </style>
   </head>
   <body>
